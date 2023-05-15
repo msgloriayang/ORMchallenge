@@ -1,6 +1,6 @@
 # E-commerce Back End Starter Code
 ## Description
-This challenge is to build the back end for an e-commerce site working with Express.js API and using Sequelize to interact with a MySQL database.
+This challenge is to build the back end for an e-commerce site working with Express.js API and configure it to use Sequelize to interact with a MySQL database.
 ## Table of Contents
 * [Features](#features)
 * [Applications](#applications)
