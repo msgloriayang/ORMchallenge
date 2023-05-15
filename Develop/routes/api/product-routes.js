@@ -8,57 +8,56 @@ router.get('/', (req, res) => {
   // find all products
   // be sure to include its associated Category and Tag data
   Product.findAll({
-    include: [{
+    include: [
+    {
       model: Category,
-      attributes: ['id', 'category_id' ]
+      attributes: ['id', 'categoryName' ]
     },
   {
     model: Tag,
-    attribute: ['id', 'tag_name'],
+    attribute: ['id', 'tagName'],
   },
 ],
-  })
-  .then(categoryData => {
-    if(!categoryData) {
-      res.status(404).json({message: "Category does not exist"});
-      return;
-    }
-    res.json(categoryData);
-  })
-  .catch(err => {
-    console.log(err);
-    res.status(500).json(err)
-  });
+ })
+ .then((productData) => {
+  res.json(productData);
+})
+.catch((err) => {
+  console.log(err);
+  res.status(500).json(err);
+});
 });
 
 // get one product
 router.get('/:id', (req, res) => {
   // find a single product by its `id`
   // be sure to include its associated Category and Tag data
-  Category.findOne({
+  Product.findOne({
     where: {
       id: req.params.id,
     },
-    include: {
-      model: Category,
-      attributes: ['id', 'category_id'],
-    },
-    {
-      model: Tag,
-      attribute: ['id', 'tag_name'],
-    },
+    include: [
+      {
+        model: Category,
+        attributes: ['id', 'categoryName'],
+      },
+      {
+        model: Tag,
+        attributes: ['id', 'tagName'],
+      },
+    ],
   })
-  .then((categoryData) => {
-    if (!categoryData) {
-      res.status(404).json({message: "Category does not exist"});
-      return;
-    }
-    res.json(categoryData);
-  })
-  .catch((err) => {
-    console.log(err);
-    res.status(500).json(err);
-  });
+    .then((productData) => {
+      if (!productData) {
+        res.status(404).json({ message: 'Product not found' });
+        return;
+      }
+      res.json(productData);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json(err);
+    });
 });
 
 // create new product
